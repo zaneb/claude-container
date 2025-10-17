@@ -2,4 +2,4 @@
 
 set -e
 
-podman build -t claude:latest .
+podman build -t claude:latest "$(dirname "${0}")"
