@@ -17,4 +17,4 @@ exec podman run -i -t \
     -v ~/.config/git:/home/claude/.config/git:ro,z \
     -v ~/.claude:/home/claude/.claude:z \
     -v ~/.claude.json:/home/claude/.claude.json:z \
-    localhost/claude:latest
+    localhost/claude:latest "$@"
