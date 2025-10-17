@@ -6,7 +6,7 @@ vertex_default_project="$(sed -n -e 's/project = \(.*\)/\1/' -e T -e p ~/.config
 mkdir -p ~/.claude
 touch ~/.claude.json
 
-exec podman run -i -t \
+exec podman run -i -t --tz=local \
     --name="claude-${proj_name}" --rm \
     --env "ANTHROPIC_VERTEX_PROJECT_ID=${vertex_default_project}" \
     --userns=keep-id \
