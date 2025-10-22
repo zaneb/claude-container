@@ -1,0 +1,10 @@
+{
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true
+  },
+  "env": {
+    "GOPATH": "/tmp/claude/go",
+    "GOCACHE": "/tmp/claude/cache/go-build"
+  }
+}

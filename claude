@@ -17,7 +17,10 @@ fi
 exec podman run -i -t --tz=local \
     --name="claude-${proj_name}" --rm \
     --env "ANTHROPIC_VERTEX_PROJECT_ID=${vertex_default_project}" \
-    --userns=keep-id \
+    --userns=keep-id --cap-drop=ALL \
+    --security-opt 'unmask=/proc/*' \
+    --security-opt label=type:container_userns_t \
+    --mount type=tmpfs,destination=/tmp/claude \
     -v "${PWD}:/projects/${proj_name}:z" \
     -w "/projects/${proj_name}" \
     -v ~/.config/gcloud:/home/claude/.config/gcloud:Z \
