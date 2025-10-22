@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 proj_name="$(basename "${PWD}")"
 vertex_default_project="$(sed -n -e 's/project = \(.*\)/\1/' -e T -e p ~/.config/gcloud/configurations/config_default)"
 
@@ -17,7 +19,7 @@ exec podman run -i -t --tz=local \
     --env "ANTHROPIC_VERTEX_PROJECT_ID=${vertex_default_project}" \
     --userns=keep-id \
     -v "${PWD}:/projects/${proj_name}:z" \
-    -w /projects/${proj_name} \
+    -w "/projects/${proj_name}" \
     -v ~/.config/gcloud:/home/claude/.config/gcloud:Z \
     -v ~/.gitconfig:/home/claude/.gitconfig:ro,z \
     -v ~/.config/git:/home/claude/.config/git:ro,z \
