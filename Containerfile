@@ -11,5 +11,5 @@ COPY settings.json /etc/claude-code/managed-settings.json
 RUN useradd -m claude
 USER claude:claude
 WORKDIR /projects
-ENV CLAUDE_CODE_USE_VERTEX=1 CLOUD_ML_REGION=us-east5
+ENV CLAUDE_CODE_USE_VERTEX=1 CLOUD_ML_REGION=us-east5 DISABLE_AUTOUPDATER=1
 ENTRYPOINT ["/opt/npm-global/bin/claude"]
