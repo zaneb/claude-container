@@ -2,4 +2,10 @@
 
 set -e
 
-podman build -t claude:latest "$(dirname "${0}")"
+build_args=()
+if [ "$1" = "--rebuild" ]; then
+    build_args=("${build_args[@]}" --no-cache)
+    shift
+fi
+
+podman build -t claude:latest "${build_args[@]}" "$(dirname "${0}")"
