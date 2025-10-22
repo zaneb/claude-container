@@ -4,7 +4,9 @@ proj_name="$(basename "${PWD}")"
 vertex_default_project="$(sed -n -e 's/project = \(.*\)/\1/' -e T -e p ~/.config/gcloud/configurations/config_default)"
 
 mkdir -p ~/.claude
-touch ~/.claude.json
+if ! [ -e ~/.claude.json ]; then
+    printf '{}' >~/.claude.json
+fi
 
 if ! podman image exists claude:latest; then
     "$(dirname "${0}")/build-claude.sh"
