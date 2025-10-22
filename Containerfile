@@ -4,7 +4,7 @@ FROM registry.fedoraproject.org/fedora:${FEDORA_VERSION}
 RUN dnf install -y nodejs @development-tools golang python3 && dnf clean all && rm -rf /var/cache/{yum,dnf}/*
 
 RUN mkdir -p /opt/npm-global && npm config set prefix /opt/npm-global
-RUN npm install -g @anthropic-ai/claude-code
+RUN npm install -g @anthropic-ai/claude-code --no-fund
 
 RUN useradd -m claude
 USER claude:claude
