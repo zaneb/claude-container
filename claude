@@ -23,7 +23,7 @@ exec podman run -i -t --tz=local \
     --mount type=tmpfs,destination=/tmp/claude \
     -v "${PWD}:/projects/${proj_name}:z" \
     -w "/projects/${proj_name}" \
-    -v ~/.config/gcloud:/home/claude/.config/gcloud:Z \
+    -v ~/.config/gcloud:/home/claude/.config/gcloud:z \
     -v ~/.gitconfig:/home/claude/.gitconfig:ro,z \
     -v ~/.config/git:/home/claude/.config/git:ro,z \
     -v ~/.claude:/home/claude/.claude:z \
