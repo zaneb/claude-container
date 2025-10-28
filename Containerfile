@@ -11,6 +11,8 @@ COPY settings.json /etc/claude-code/managed-settings.json
 RUN useradd -m claude
 COPY sudoers /etc/sudoers.d/claude
 USER claude:claude
+ENV BASH_ENV=/home/claude/.bash_environment
+COPY environment $BASH_ENV
 RUN mkdir /home/claude/.config
 WORKDIR /projects
 ENV CLAUDE_CODE_USE_VERTEX=1 CLOUD_ML_REGION=us-east5 DISABLE_AUTOUPDATER=1

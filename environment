@@ -1,0 +1,2 @@
+PATH="${PATH}:${GOBIN:-${GOPATH:-${HOME}/go}/bin}"
+export PATH
