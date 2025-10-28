@@ -74,8 +74,8 @@ gcloud auth application-default set-quota-project ...
 The easiest way to run Claude is to add an alias in your `~/.bashrc` file:
 
 ```
-alias claude=path/to/claude-container/claude
-alias yolo=path/to/claude-container/claude --dangerously-skip-permissions
+alias claude="path/to/claude-container/claude"
+alias yolo="path/to/claude-container/claude --dangerously-skip-permissions"
 ```
 
 Then just run `claude` in your project directory (from a new shell). The first
