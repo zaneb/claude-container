@@ -11,6 +11,7 @@ COPY settings.json /etc/claude-code/managed-settings.json
 RUN useradd -m claude
 COPY sudoers /etc/sudoers.d/claude
 USER claude:claude
+RUN mkdir /home/claude/.config
 WORKDIR /projects
 ENV CLAUDE_CODE_USE_VERTEX=1 CLOUD_ML_REGION=us-east5 DISABLE_AUTOUPDATER=1
 ENTRYPOINT ["/opt/npm-global/bin/claude"]
