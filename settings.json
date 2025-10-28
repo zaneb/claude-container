@@ -9,6 +9,7 @@
   },
   "permissions": {
     "allow": [
+      "WebFetch(domain:docs.redhat.com)",
       "WebFetch(domain:k8s.io)",
       "WebFetch(domain:sigs.k8s.io)",
       "WebFetch(domain:github.com)",
