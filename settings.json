@@ -6,5 +6,17 @@
   "env": {
     "GOPATH": "/tmp/claude/go",
     "GOCACHE": "/tmp/claude/cache/go-build"
+  },
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:k8s.io)",
+      "WebFetch(domain:sigs.k8s.io)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:golang.org)",
+      "WebFetch(domain:go.googlesource.com)",
+      "WebFetch(domain:go.uber.org)",
+      "WebFetch(domain:gopkg.in)",
+      "WebFetch(domain:gotest.tools)"
+    ]
   }
 }
