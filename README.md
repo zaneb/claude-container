@@ -16,15 +16,14 @@ network access by the Bash tool.
 Why Run Claude Code in a Container?
 -----------------------------------
 
-Many commentators have
-[observed](https://simonwillison.net/2025/Sep/30/designing-agentic-loops/#the-joy-of-yolo-mode)
-that running Claude Code with
+Many commentators have observed that running Claude Code with
 [`--dangerously-skip-permissions`](https://dangerously-skip-permissions.com/)
-is a qualitatively different experience to running without. When you don't have
-to constantly approve each command to make progress, you can set Claude to work
-on a problem and go do something else. (Often the task could be something like
-fixing a broken unit test, which requires many experiments but not necessarily
-large-scale code changes.)
+is a [qualitatively different
+experience](https://simonwillison.net/2025/Oct/22/living-dangerously-with-claude/)
+to running without. When you don't have to constantly approve each command to
+make progress, you can set Claude to work on a problem and go do something
+else. (Often the task could be something like fixing a broken unit test, which
+requires many experiments but not necessarily large-scale code changes.)
 
 Unfortunately, as the name suggests, this is dangerous. There are many ways to
 give the LLM access to untrusted input (e.g. random review comments on a public
