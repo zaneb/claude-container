@@ -8,7 +8,9 @@ RUN npm install -g @anthropic-ai/claude-code --no-fund
 
 COPY settings.json /etc/claude-code/managed-settings.json
 
-RUN useradd -m claude
+ARG UID=1000
+ARG GID=1000
+RUN groupadd -g "${GID}" claude && useradd -u "${UID}" -g "${GID}" -m claude
 COPY sudoers /etc/sudoers.d/claude
 USER claude:claude
 ENV BASH_ENV=/home/claude/.bash_environment

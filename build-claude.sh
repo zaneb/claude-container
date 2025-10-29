@@ -8,4 +8,4 @@ if [ "$1" = "--rebuild" ]; then
     shift
 fi
 
-podman build -t claude:latest "${build_args[@]}" "$(dirname "${0}")"
+podman build -t claude:latest --build-arg UID="$(id -ru)" --build-arg GID="$(id -rg)" "${build_args[@]}" "$(dirname "${0}")"
