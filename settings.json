@@ -5,7 +5,8 @@
   },
   "env": {
     "GOPATH": "/tmp/claude/go",
-    "GOCACHE": "/tmp/claude/cache/go-build"
+    "GOCACHE": "/tmp/claude/cache/go-build",
+    "XDG_CACHE_HOME": "/tmp/claude/cache"
   },
   "permissions": {
     "allow": [
