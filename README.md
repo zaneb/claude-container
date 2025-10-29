@@ -87,6 +87,28 @@ Auto-updating is disabled. To update, rebuild the container image by running
 `build-claude.sh --rebuild`. This restarts the image build with the latest
 version of Fedora and its packages as well as Claude Code.
 
+GitHub integration
+------------------
+
+To allow Claude to use the `gh` CLI command, [create a fine-grained personal access token](https://docs.github.com/en/enterprise-cloud@latest/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token) and store it in the Podman Secret `claude-github-token` by copying it to the clipboard and doing:
+
+```
+podman secret create --replace claude-github-token <(wl-paste)
+```
+
+Example permissions:
+
+* [Read public repos only](https://github.com/settings/personal-access-tokens/new?name=claude+container&description=Read-only+token+for+public+repos&expires_in=none)
+* [Read public and private repos (including Issues and PRs)](https://github.com/settings/personal-access-tokens/new?name=claude-container&description=Read-only+token+for+public+and+private+repos&contents=read&pull_requests=read&issues=read)
+* [Write to repos, PRs, and Issues](https://github.com/settings/personal-access-tokens/new?name=claude-container&description=Read+and+Write+to+repos,+PRs,+and+Issues&contents=write&pull_requests=write&issues=write)
+
+To pass through **all** of your GitHub permissions (not recommended!), you can
+do:
+
+```
+gh auth token | podman secret create --replace claude-github-token
+```
+
 Drawbacks
 ---------
 

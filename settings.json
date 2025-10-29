@@ -12,6 +12,7 @@
     "allow": [
       "WebFetch(domain:docs.redhat.com)",
       "WebFetch(domain:issues.redhat.com)",
+      "WebFetch(domain:api.github.com)",
       "WebFetch(domain:k8s.io)",
       "WebFetch(domain:sigs.k8s.io)",
       "WebFetch(domain:github.com)",
