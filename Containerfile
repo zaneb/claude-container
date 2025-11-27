@@ -4,6 +4,7 @@ FROM registry.fedoraproject.org/fedora:${FEDORA_VERSION}
 RUN dnf install -y nodejs socat bubblewrap which procps-ng @development-tools jq golang python3
 
 RUN mkdir -p /opt/npm-global && npm config set prefix /opt/npm-global
+RUN npm config set ignore-scripts true
 RUN npm install -g @anthropic-ai/claude-code --no-fund
 
 COPY settings.json /etc/claude-code/managed-settings.json
