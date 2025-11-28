@@ -14,6 +14,9 @@ if ! podman image exists claude:latest; then
     "$(dirname "${0}")/build-claude.sh"
 fi
 
+# Create directory for additional git config if it doesn't exist
+mkdir -p ~/.config/git
+
 exec podman run -i -t --tz=local \
     --name="claude-${proj_name}" --rm \
     --env "ANTHROPIC_VERTEX_PROJECT_ID=${vertex_default_project}" \
