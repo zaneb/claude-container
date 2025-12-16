@@ -1,7 +1,9 @@
 which
 procps-ng
+wget2
 @development-tools
 jq
 gh
 golang
+golangci-lint
 python3
