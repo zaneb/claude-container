@@ -1,0 +1,7 @@
+which
+procps-ng
+@development-tools
+jq
+gh
+golang
+python3
