@@ -10,9 +10,10 @@ COPY settings.json /etc/claude-code/managed-settings.json
 
 ARG UID=1000
 ARG GID=1000
-RUN groupadd -g "${GID}" claude && useradd -u "${UID}" -g "${GID}" -m claude
+RUN groupadd -f -g "${GID}" claude && (id -u "${UID}" &>/dev/null || useradd -u "${UID}" -g "${GID}" -m claude)
 COPY sudoers /etc/sudoers.d/claude
-USER claude:claude
+RUN chmod 0440 /etc/sudoers.d/claude
+USER claude:${GID}
 ENV BASH_ENV=/home/claude/.bash_environment
 COPY environment $BASH_ENV
 
