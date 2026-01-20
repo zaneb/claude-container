@@ -2,9 +2,10 @@ Claude Code in a Container
 ==========================
 
 This project allows you to run Claude Code, configured to use models via
-Vertex, inside a Podman container with SELinux isolation. This means that only
+Vertex, inside a Podman container with strong isolation. This means that only
 the files on your current project are available to Claude; it has no ability to
-either see other files or modify your system.
+either see other files or modify your system. On Linux, this uses SELinux for
+mandatory access control; on macOS, isolation is provided by Podman's Linux VM.
 
 In addition, Claude is configured to use its own sandbox, which blocks the Bash
 tool from writing to files outside of your project, in exchange for not
@@ -50,8 +51,9 @@ sandbox.
 Running inside a container means that Claude Code can only see and modify data
 that is explicitly mounted into the container environment. Using Podman means
 the container can be run without root permissions, reducing the danger of
-privilege escalation, and using SELinux means that the isolation is enforced by
-mandatory access control. Within the container, you can allow Claude to install new packages without affecting your system.
+privilege escalation. On Linux, SELinux enforces the isolation through
+mandatory access control; on macOS, the Podman VM provides the isolation
+boundary. Within the container, you can allow Claude to install new packages without affecting your system.
 
 If your personal risk calculus allows it, you may choose to run with
 `--dangerously-skip-permissions` inside the container. However, the sandbox
@@ -63,6 +65,13 @@ eliminating all permissions checks.
 Installation
 ------------
 
+### Prerequisites
+
+- **Podman**: On Linux, install via your package manager. On macOS, see the [macOS Support](#macos-support) section below.
+- **GCloud SDK**: For Vertex AI authentication
+
+### Setup
+
 First, you must log in to GCloud to provide access to Vertex by doing:
 
 ```
@@ -70,7 +79,13 @@ gcloud auth application-default login
 gcloud auth application-default set-quota-project ...
 ```
 
-The easiest way to run Claude is to add an alias in your `~/.bashrc` file:
+Running the following script will build the container on linux or Mac OS:
+
+```
+path/to/claude-container/build-claude.sh
+```
+
+The easiest way to run Claude is to add an alias in your `~/.bashrc` (or `~/.zshrc` on Mac OS) file:
 
 ```
 alias claude="path/to/claude-container/claude"
@@ -90,6 +105,38 @@ version of Fedora and its packages as well as Claude Code.
 To select a particular version of Claude Code, pass `--version ${version}`. As
 well as an explicit version number, you can pass `stable` or `latest`. The
 default is `stable`.
+
+macOS Support
+-------------
+
+This project supports macOS through Podman Desktop or Podman installed via Homebrew.
+
+### Requirements
+
+On macOS, you must have [Podman](https://podman.io/getting-started/installation) installed:
+
+```
+brew install podman
+podman machine init
+podman machine start
+```
+
+### How It Works on macOS
+
+On macOS, Podman runs containers inside a Linux virtual machine (using macOS's Hypervisor framework). This means:
+
+- **The container still provides isolation**: Your project files are only accessible within the VM and container
+- **SELinux works inside the VM**: The Fedora-based container runs with SELinux enabled, providing the same security guarantees
+- **The sandbox is functional**: Claude Code's bubblewrap sandbox operates normally within the Linux VM
+- **Performance**: There is some overhead from the VM layer, particularly for file I/O across the VM boundary
+
+The isolation model is slightly different from Linux (container → VM → macOS vs. container → Linux), but the security guarantees remain: Claude Code can only access files you explicitly mount into the container.
+
+### macOS-Specific Notes
+
+- Volume mounts automatically handle the VM boundary (no SELinux labels needed on macOS)
+- The `build-claude.sh` script automatically uses `podman build` instead of `buildah` on macOS
+- The gcloud configuration path (`~/.config/gcloud`) works the same on both platforms
 
 GitHub integration
 ------------------
