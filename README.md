@@ -70,7 +70,13 @@ gcloud auth application-default login
 gcloud auth application-default set-quota-project ...
 ```
 
-The easiest way to run Claude is to add an alias in your `~/.bashrc` file:
+Running the following script will build the container on linux or Mac OS:
+
+```
+path/to/claude-container/build-claude.sh
+```
+
+The easiest way to run Claude is to add an alias in your `~/.bashrc` (or `~/.profile` on Mac OS) file:
 
 ```
 alias claude="path/to/claude-container/claude"

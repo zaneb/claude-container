@@ -3,7 +3,7 @@
 set -e
 
 proj_name="$(basename "${PWD}")"
-vertex_default_project="$(sed -n -e 's/project = \(.*\)/\1/' -e T -e p ~/.config/gcloud/configurations/config_default)"
+vertex_default_project="$(sed -n '/^project = /{s///p;q;}' ~/.config/gcloud/configurations/config_default)"
 
 mkdir -p ~/.claude
 if ! [ -e ~/.claude.json ]; then
@@ -21,20 +21,32 @@ fi
 # Create directory for additional git config if it doesn't exist
 mkdir -p ~/.config/git
 
+# Configure the arguments to the podman execution around host OS, accommodating for mac
+selinux_opts=(
+    --security-opt 'unmask=/proc/*'
+    --security-opt label=type:container_userns_t
+)
+
+# Check specifically if the host machine is a Mac
+if [[ "$(uname -s)" == "Darwin" ]]; then
+    selinux_opts=(--security-opt 'unmask=/proc/*')
+    volume_label=""
+else
+    volume_label=":z"
+fi
+
 exec podman run -i -t --tz=local \
     --name="claude-${proj_name}" --rm \
     --env "ANTHROPIC_VERTEX_PROJECT_ID=${vertex_default_project}" \
     --secret claude-github-token,type=env,target=GH_TOKEN \
     --userns=keep-id \
-    --security-opt 'unmask=/proc/*' \
-    --security-opt label=type:container_userns_t \
-    --mount type=tmpfs,destination=/tmp/claude \
+    "${selinux_opts[@]}" \
     --mount type=tmpfs,destination="/tmp/claude-$(id -ru)" \
-    -v "${PWD}:/projects/${proj_name}:z" \
+    -v "${PWD}:/projects/${proj_name}${volume_label}" \
     -w "/projects/${proj_name}" \
-    -v ~/.config/gcloud:/home/claude/.config/gcloud:z \
-    -v ~/.gitconfig:/home/claude/.gitconfig:ro,z \
-    -v ~/.config/git:/home/claude/.config/git:ro,z \
-    -v ~/.claude:/home/claude/.claude:z \
-    -v ~/.claude.json:/home/claude/.claude.json:z \
+    -v ~/.config/gcloud:/home/claude/.config/gcloud${volume_label} \
+    -v ~/.gitconfig:/home/claude/.gitconfig:ro${volume_label} \
+    -v ~/.config/git:/home/claude/.config/git:ro${volume_label} \
+    -v ~/.claude:/home/claude/.claude${volume_label} \
+    -v ~/.claude.json:/home/claude/.claude.json${volume_label} \
     localhost/claude:latest "$@"
