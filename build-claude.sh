@@ -8,4 +8,15 @@ if [ "$1" = "--rebuild" ]; then
     shift
 fi
 
-buildah build -t claude:latest --pull=newer --build-arg UID="$(id -ru)" --build-arg GID="$(id -rg)" "${build_args[@]}" "$(dirname "${0}")"
+# Accommodate building a the container on a mac
+BUILDER="buildah"
+if [ "$(uname -s)" = "Darwin" ]; then
+    BUILDER="podman"
+fi
+
+${BUILDER} build -t claude:latest \
+    --pull=newer \
+    --build-arg UID="$(id -ru)" \
+    --build-arg GID="$(id -rg)" \
+    "${build_args[@]}" \
+    "$(cd -- "$(dirname "$0")" && pwd)"
