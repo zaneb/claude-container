@@ -21,6 +21,12 @@ fi
 # Create directory for additional git config if it doesn't exist
 mkdir -p ~/.config/git
 
+extra_volumes=()
+if [ -f .git ]; then
+    gitdir="$(realpath "$(sed -n -e 's/^gitdir: //p' .git)/../..")"
+    extra_volumes+=(-v "${gitdir}:${gitdir}:z")
+fi
+
 exec podman run -i -t --tz=local \
     --name="claude-${proj_name}" --rm \
     --env "ANTHROPIC_VERTEX_PROJECT_ID=${vertex_default_project}" \
@@ -37,4 +43,5 @@ exec podman run -i -t --tz=local \
     -v ~/.config/git:/home/claude/.config/git:ro,z \
     -v ~/.claude:/home/claude/.claude:z \
     -v ~/.claude.json:/home/claude/.claude.json:z \
+    "${extra_volumes[@]}" \
     localhost/claude:latest "$@"
