@@ -4,6 +4,7 @@ wget2
 @development-tools
 jq
 gh
+ShellCheck
 golang
 golangci-lint
 python3
