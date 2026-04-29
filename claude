@@ -29,6 +29,7 @@ fi
 
 exec podman run -i -t --tz=local \
     --name="claude-${proj_name}" --rm \
+    --log-driver=none \
     --env "ANTHROPIC_VERTEX_PROJECT_ID=${vertex_default_project}" \
     --secret claude-github-token,type=env,target=GH_TOKEN \
     --userns=keep-id \
