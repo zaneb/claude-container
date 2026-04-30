@@ -10,9 +10,13 @@
   },
   "permissions": {
     "allow": [
+      "Read(/tmp/claude)",
+      "WebSearch",
       "WebFetch(domain:docs.redhat.com)",
       "WebFetch(domain:issues.redhat.com)",
+      "WebFetch(domain:redhat.atlassian.net)",
       "WebFetch(domain:api.github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
       "WebFetch(domain:prow.ci.openshift.org)",
       "WebFetch(domain:gcsweb-ci.apps.ci.l2s4.p1.openshiftapps.com)",
       "WebFetch(domain:proxy.golang.org)",
@@ -25,6 +29,7 @@
       "WebFetch(domain:golang.org)",
       "WebFetch(domain:google.golang.org)",
       "WebFetch(domain:go.googlesource.com)",
+      "WebFetch(domain:storage.googleapis.com)",
       "WebFetch(domain:go.uber.org)",
       "WebFetch(domain:gopkg.in)",
       "WebFetch(domain:gotest.tools)"
