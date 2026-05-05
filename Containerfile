@@ -21,5 +21,5 @@ RUN curl -fsSL --proto-redir '-all,https' --tlsv1.3 https://claude.ai/install.sh
 
 RUN mkdir /home/claude/.config
 WORKDIR /projects
-ENV CLAUDE_CODE_USE_VERTEX=1 CLOUD_ML_REGION=us-east5 DISABLE_AUTOUPDATER=1
+ENV CLAUDE_CODE_USE_VERTEX=1 CLOUD_ML_REGION=global DISABLE_AUTOUPDATER=1
 ENTRYPOINT ["/home/claude/.local/bin/claude"]
