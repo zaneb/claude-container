@@ -17,7 +17,8 @@ ENV BASH_ENV=/home/claude/.bash_environment
 COPY environment $BASH_ENV
 
 ENV PATH=/home/claude/.local/bin:/usr/local/bin:/usr/bin
-RUN curl -fsSL --proto-redir '-all,https' --tlsv1.3 https://claude.ai/install.sh | bash
+ARG VERSION=stable
+RUN curl -fsSL --proto-redir '-all,https' --tlsv1.3 https://claude.ai/install.sh | bash -s "${VERSION}"
 
 RUN mkdir /home/claude/.config
 WORKDIR /projects
