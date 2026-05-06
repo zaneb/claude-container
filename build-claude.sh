@@ -9,6 +9,11 @@ while [[ $# -gt 0 ]]; do
         build_args+=(--no-cache)
         shift
         ;;
+    --version)
+        shift
+        build_args+=(--build-arg VERSION="$1")
+        shift
+        ;;
     *)
         printf 'Invalid arg \"%s\"\n' "$1" >&2
         ;;
