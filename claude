@@ -35,8 +35,8 @@ exec podman run -i -t --tz=local \
     --userns=keep-id \
     --security-opt 'unmask=/proc/*' \
     --security-opt label=type:container_userns_t \
-    --mount type=tmpfs,destination=/tmp/claude \
-    --mount type=tmpfs,destination="/tmp/claude-$(id -ru)" \
+    --mount type=tmpfs,destination=/tmp/claude,U \
+    --mount type=tmpfs,destination="/tmp/claude-$(id -ru)",U \
     -v "${PWD}:/projects/${proj_name}:z" \
     -w "/projects/${proj_name}" \
     -v ~/.config/gcloud:/home/claude/.config/gcloud:z \
