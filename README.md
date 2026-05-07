@@ -87,6 +87,10 @@ Auto-updating is disabled. To update, rebuild the container image by running
 `build-claude.sh --rebuild`. This restarts the image build with the latest
 version of Fedora and its packages as well as Claude Code.
 
+To select a particular version of Claude Code, pass `--version ${version}`. As
+well as an explicit version number, you can pass `stable` or `latest`. The
+default is `stable`.
+
 GitHub integration
 ------------------
 
