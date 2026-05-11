@@ -2,6 +2,7 @@
   "sandbox": {
     "enabled": true,
     "autoAllowBashIfSandboxed": true,
+    "excludedCommands": ["sudo dnf install *"],
     "filesystem": {
         "denyRead": ["~/.config/gcloud"]
     }
