@@ -18,7 +18,8 @@ COPY environment $BASH_ENV
 
 ENV PATH=/home/claude/.local/bin:/usr/local/bin:/usr/bin
 ARG VERSION=stable
-RUN curl -fsSL --proto-redir '-all,https' --tlsv1.3 https://claude.ai/install.sh | bash -s "${VERSION}"
+COPY --chmod=755 install.sh /tmp/
+RUN /tmp/install.sh "${VERSION}"
 
 RUN mkdir /home/claude/.config
 WORKDIR /projects
