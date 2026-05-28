@@ -17,7 +17,7 @@ ENV BASH_ENV=/home/claude/.bash_environment
 COPY environment $BASH_ENV
 
 ENV PATH=/home/claude/.local/bin:/usr/local/bin:/usr/bin
-ARG VERSION=stable
+ARG VERSION=latest
 COPY --chmod=755 install.sh /tmp/
 RUN /tmp/install.sh "${VERSION}"
 
