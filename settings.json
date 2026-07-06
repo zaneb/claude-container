@@ -14,7 +14,8 @@
   },
   "permissions": {
     "allow": [
-      "Read(/tmp/claude)",
+      "Read(//tmp/claude)",
+      "Edit(//tmp/claude)",
       "WebSearch",
       "WebFetch(domain:docs.redhat.com)",
       "WebFetch(domain:issues.redhat.com)",
