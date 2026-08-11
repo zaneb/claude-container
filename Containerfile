@@ -5,6 +5,7 @@ RUN dnf install -y wget2 jq socat bubblewrap
 
 COPY packages.txt /opt/packages.txt
 RUN dnf install -y $(cat /opt/packages.txt)
+RUN git config --system fsmonitor.socketDir /tmp/claude/fsmonitor
 
 COPY settings.json /etc/claude-code/managed-settings.json
 
